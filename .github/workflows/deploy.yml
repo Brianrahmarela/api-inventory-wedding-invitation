@@ -20,8 +20,8 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /home/student/student2
+            cd /home/student/student2/api-inventory-wedding-invitation
             git pull origin main
             docker build -t api-inventory-wedding-invitation .
             docker rm -f student2 || true
-            docker run -d -p 8002:8000 --env-file /home/student/student2/.env --name student2 api-inventory-wedding-invitation
+            docker run -d -p 8002:8000 --env-file /home/student/student2/api-inventory-wedding-invitation/.env --name student2 api-inventory-wedding-invitation
