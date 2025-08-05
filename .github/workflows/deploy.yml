@@ -1,0 +1,27 @@
+name: Brian R Final Project Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/student/student2
+            git pull origin main
+            docker build -t api-inventory-wedding-invitation .
+            docker rm -f student2 || true
+            docker run -d -p 8002:8000 --env-file /home/student/student2/.env --name student2 api-inventory-wedding-invitation
