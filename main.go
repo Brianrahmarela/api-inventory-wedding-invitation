@@ -4,6 +4,7 @@ import (
 	"api-go-test/config"
 	"api-go-test/models"
 	"api-go-test/routes"
+	"os"
 
 	// "api-go-test/utils"
 	"log"
@@ -36,5 +37,9 @@ func main() {
 	//create hash password to make admin manually from mysql
 	// utils.PrintHashedPassword("123456")
 	app := InitializeApp()
-	app.Run(":8080")
+	port := os.Getenv("APP_PORT")
+	if port == "" {
+		port = "8080" // fallback
+	}
+	app.Run(":" + port)
 }
