@@ -13,7 +13,7 @@ func SetupRoutes(router *gin.Engine, db *gorm.DB) {
 	{
 		// Endpoint test: /api/about
 		api.GET("/about", func(c *gin.Context) {
-			c.String(http.StatusOK, "hello")
+			c.String(http.StatusOK, "hello!")
 		})
 
 		SetupAuthRoutes(api, db)
