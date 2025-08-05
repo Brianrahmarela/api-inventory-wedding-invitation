@@ -7,18 +7,11 @@ import (
 	"os"
 
 	// "api-go-test/utils"
-	"log"
 
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 )
 
 func InitializeApp() *gin.Engine {
-	err := godotenv.Load()
-
-	if err != nil {
-		log.Fatal("Error loading ENV")
-	}
 
 	r := gin.Default()
 
