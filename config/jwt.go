@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-// ambil JWT Secret key
+// ambil JWT Secret keys
 func GetJwtSecret() []byte {
 	return []byte(os.Getenv("JWT_SECRET_KEY"))
 }
