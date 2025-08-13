@@ -3,9 +3,10 @@ package services
 import (
 	"api-go-test/models"
 	"api-go-test/utils"
-	"encoding/json"
+
+	// "encoding/json"
 	"errors"
-	"fmt"
+	// "fmt"
 	"net/http"
 
 	"strings"
@@ -56,8 +57,8 @@ func (as *AuthService) Register(req *models.RegisterRequest) (string, int, error
 	}
 
 	// debug print
-	u, _ := json.MarshalIndent(user, "", "  ")
-	fmt.Println("Registered user:", string(u))
+	// u, _ := json.MarshalIndent(user, "", "  ")
+	// fmt.Println("Registered user:", string(u))
 
 	// generate token include role
 	token, err := utils.GenerateToken(user.ID, user.Role)

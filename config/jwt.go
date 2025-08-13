@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 	"os"
 	"time"
 )
@@ -14,7 +13,7 @@ func GetJwtSecret() []byte {
 // ambil durasi expired dari JWT
 func GetJwtExpirationDuration() time.Duration {
 	duration, err := time.ParseDuration(os.Getenv("JWT_EXPIRES_IN"))
-	fmt.Println("duration", duration)
+	// fmt.Println("duration", duration)
 	// set default 24 jam jika di .env JWT_EXPIRES_IN == nil
 	if err != nil {
 		return time.Hour * 24
