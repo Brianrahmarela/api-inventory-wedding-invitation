@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"api-go-test/models"
-	"api-go-test/services"
+	"api-go-invitation/models"
+	"api-go-invitation/services"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

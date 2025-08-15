@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"api-go-test/config"
+	"api-go-invitation/config"
 	"fmt"
 	"time"
 

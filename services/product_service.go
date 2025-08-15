@@ -1,8 +1,8 @@
 package services
 
 import (
-	"api-go-test/models"
-	"api-go-test/utils"
+	"api-go-invitation/models"
+	"api-go-invitation/utils"
 	"errors" //Package bawaan Go untuk bikin error manual
 	"fmt"
 	"strings"

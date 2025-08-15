@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"api-go-test/utils"
+	"api-go-invitation/utils"
 	"strings"
 
 	"github.com/gin-gonic/gin"

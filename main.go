@@ -1,12 +1,12 @@
 package main
 
 import (
-	"api-go-test/config"
-	"api-go-test/models"
-	"api-go-test/routes"
+	"api-go-invitation/config"
+	"api-go-invitation/models"
+	"api-go-invitation/routes"
 	"os"
 
-	// "api-go-test/utils"
+	// "api-go-invitation/utils"
 
 	"github.com/gin-gonic/gin"
 )
@@ -18,8 +18,7 @@ func InitializeApp() *gin.Engine {
 	db := config.ConnectDatabase()
 
 	// auto migrate
-	db.AutoMigrate(&models.User{}, &models.Product{})
-	// db.AutoMigrate(&models.User{}, &models.Profile{})
+	db.AutoMigrate(&models.User{}, &models.Product{}, &models.Order{}, &models.Guest{}, &models.Payment{})
 
 	routes.SetupRoutes(r, db)
 

@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"api-go-test/controllers"
-	"api-go-test/middleware"
+	"api-go-invitation/controllers"
+	"api-go-invitation/middleware"
 	"fmt"
 
 	"github.com/gin-gonic/gin"

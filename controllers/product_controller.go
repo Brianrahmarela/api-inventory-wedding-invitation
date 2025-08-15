@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"api-go-test/models"
-	"api-go-test/services"
+	"api-go-invitation/models"
+	"api-go-invitation/services"
 
 	// "fmt"
 	"net/http"
@@ -14,7 +14,7 @@ import (
 )
 
 // Tugasnya melayani permintaan: menambah produk, melihat daftar produk, menghapus produk, dll.
-// si pelayan (ProductController) bisa menjalankan pekerjaannya karena dibekali asisten (service) yang mengerjakan bagian teknis ngobrol ke database
+// si pelayan (ProductController) bisa menjalankan pekerjaannya karena dibekali asisten (service) yang mengerjakan bagian teknis ngobrol ke database, ProductController ini bukan cuma struct kosong untuk disimpan, tapi isinya biasanya fungsi-fungsi seperti GetProducts(), AddProduct(), dll. Saat dipanggil, fungsi-fungsi itu akan memanggil service di bawahnya untuk ambil atau ubah data di database.
 type ProductController struct {
 	//ProductService (yang tipenya pointer ke services.ProductService), ProductService adalah dependency = hal yang wajib dimiliki ProductController agar ProductController bisa jalan
 	ProductService *services.ProductService
