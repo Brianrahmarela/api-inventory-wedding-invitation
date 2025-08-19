@@ -4,8 +4,7 @@ import (
 	"api-go-invitation/models"
 	"fmt"
 	"mime/multipart"
-
-	// "net/url"
+	"net/url"
 	"strings"
 	"time"
 
@@ -129,14 +128,21 @@ func (s *OrderService) CreateOrderWithGuests(
 			return nil, fmt.Errorf("row %d: Nama cannot be empty", i+1)
 		}
 
+		fullName := guestName
+		if partnerName != "" {
+			fullName = fmt.Sprintf("%s & %s", guestName, partnerName)
+		}
+
+		// 1) encode pakai QueryEscape (meng-encode & -> %26, tapi spasi -> +)
+		// 2) ubah + menjadi %20 supaya spasi tampil sebagai %20
+		escaped := url.QueryEscape(fullName)
+		escaped = strings.ReplaceAll(escaped, "+", "%20")
+
 		link := fmt.Sprintf(
-			"https://invitation-wedding.com/%s-%s/?to=%s&partner=%s",
+			"https://app.inviteable.id/%s-%s/?to=%s",
 			groomSlug,
 			brideSlug,
-			guestName,
-			partnerName,
-			// url.QueryEscape(guestName),
-			// url.QueryEscape(partnerName),
+			escaped,
 		)
 
 		guest := models.Guest{

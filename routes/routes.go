@@ -9,7 +9,8 @@ import (
 
 func SetupRoutes(router *gin.Engine, db *gorm.DB) {
 	// Grup /api
-	api := router.Group("/api")
+	api := router.Group("/api/v1")
+
 	{
 		// Endpoint test: /api/about
 		api.GET("/about", func(c *gin.Context) {
@@ -20,5 +21,6 @@ func SetupRoutes(router *gin.Engine, db *gorm.DB) {
 		SetupProductRoutes(api, db)
 		SetupOrderRoutes(api, db)
 		SetupPaymentRoutes(api, db)
+		SetupNotificationRoutes(api, db)
 	}
 }
