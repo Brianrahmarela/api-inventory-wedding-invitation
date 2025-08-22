@@ -56,7 +56,7 @@ func main() {
 	app := InitializeApp()
 	port := os.Getenv("APP_PORT")
 	if port == "" {
-		port = "8080" // fallback
+		port = "8080" // fallbacks
 	}
 	fmt.Println("Server running on port", port)
 	app.Run(":" + port)
