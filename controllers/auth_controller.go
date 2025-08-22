@@ -3,18 +3,19 @@ package controllers
 import (
 	"api-go-invitation/models"
 	"api-go-invitation/services"
+	"api-go-invitation/utils"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 )
 
 type AuthController struct {
-	AuthService *services.AuthService
+	service *services.AuthService
 }
 
-func NewAuthController(db *gorm.DB) *AuthController {
-	return &AuthController{AuthService: services.NewAuthService(db)}
+// Controller tidak menerima DB; menerima service siap pakai.
+func NewAuthController(service *services.AuthService) *AuthController {
+	return &AuthController{service}
 }
 
 func (ac *AuthController) Register(c *gin.Context) {
@@ -23,16 +24,13 @@ func (ac *AuthController) Register(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	token, status, err := ac.AuthService.Register(&req)
-	if err != nil {
-		c.JSON(status, gin.H{"error": err.Error()})
+
+	if err := ac.service.Register(&req); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusCreated, gin.H{
-		"message": "User registered successfully",
-		"token":   token,
-		"role":    req.Role,
-	})
+
+	c.JSON(http.StatusCreated, gin.H{"message": "user registered successfully"})
 }
 
 func (ac *AuthController) Login(c *gin.Context) {
@@ -41,18 +39,22 @@ func (ac *AuthController) Login(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	token, role, err := ac.AuthService.Login(&req)
+
+	user, err := ac.service.Login(&req)
 	if err != nil {
-		if err.Error() == "invalid email or password" {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
-			return
-		}
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid email or password"})
 		return
 	}
+
+	token, err := utils.GenerateToken(user.ID, user.Role)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to generate token"})
+		return
+	}
+
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Login successful",
 		"token":   token,
-		"role":    role,
+		"user":    user,
 	})
 }

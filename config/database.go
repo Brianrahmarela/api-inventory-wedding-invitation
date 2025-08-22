@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"time"
 
@@ -13,7 +14,7 @@ import (
 func ConnectDatabase() *gorm.DB {
 	errEnv := godotenv.Load()
 	if errEnv != nil {
-		fmt.Println("Gagal load .env:", errEnv)
+		log.Fatal("Gagal load .env:", errEnv)
 	}
 	dbHost := os.Getenv("DB_HOST")
 	dbPort := os.Getenv("DB_PORT")

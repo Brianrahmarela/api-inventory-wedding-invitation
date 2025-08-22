@@ -13,15 +13,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Deploy to VPS via SSH
+      - name: Deploy api inventory wedding invitation
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /home/student/student2/api-inventory-wedding-invitation
+            cd /home/student/final-project/student2/api-inventory-wedding-invitation
             git pull origin main
-            docker build -t api-inventory-wedding-invitation .
+            docker build -t api-inventory-wedding-invitation-app .
             docker rm -f student2 || true
-            docker run -d -p 8002:8000 --env-file /home/student/student2/api-inventory-wedding-invitation/.env --name student2 api-inventory-wedding-invitation
+            docker run -d -p 8002:8000 --env-file /home/student/final-project/student2/api-inventory-wedding-invitation/.env --name student2 api-inventory-wedding-invitation-app
+
+# cd /home/student/{nama folder}
+# git pull origin main
+# docker build -t {nama folder}-app .
+# docker rm -f {bebas sebagai nama kontainer saja} || true
+# docker run -d -p {port container mapping dari mentor}:8000 --env-file /home/student/{nama folder}/.env --name {bebas sebagai nama kontainer saja, dengan catatan sama seperti diatas} {nama folder}-app
