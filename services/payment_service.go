@@ -21,9 +21,13 @@ type PaymentService struct {
 }
 
 func NewPaymentService(db *gorm.DB) *PaymentService {
-	// Load .env ketika service dibuat
-	if err := godotenv.Load(); err != nil {
-		log.Println("Warning: .env file not found, relying on system env")
+	// Sama: hanya load .env kalau ada
+	if _, err := os.Stat(".env"); err == nil {
+		if err := godotenv.Load(); err != nil {
+			log.Println("Warning: .env file not found, relying on system env")
+		}
+	} else {
+		log.Println("No .env file found, relying on system env")
 	}
 	return &PaymentService{DB: db}
 }
